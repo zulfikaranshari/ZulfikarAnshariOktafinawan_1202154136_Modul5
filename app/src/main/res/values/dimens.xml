@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="padding_item">20dp</dimen>
+    <dimen name="text_label">15sp</dimen>
+    <dimen name="input_text_size">230dp</dimen>
+    <dimen name="title_label">30sp</dimen>
+</resources>

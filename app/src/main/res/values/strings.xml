@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">To-Do List</string>
+    <string name="action_settings">Settings</string>
+    <string name="input_item_name">Input To-Do</string>
+</resources>

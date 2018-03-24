@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_item"
+    tools:context="com.example.zulfikaranshari.zulfikaransharioktafinawan_1202154136_modul5.InputItem">
+
+    <TextView
+        android:id="@+id/titleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToDo Name"
+        android:textSize="@dimen/text_label"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/inputTitle"
+        android:layout_width="@dimen/input_text_size"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/titleLabel"
+        android:layout_alignBottom="@+id/titleLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:textSize="@dimen/text_label"/>
+
+    <TextView
+        android:id="@+id/dscLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="@dimen/text_label"
+        android:layout_below="@+id/titleLabel"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/inputDsc"
+        android:layout_width="@dimen/input_text_size"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dscLabel"
+        android:layout_alignBottom="@id/dscLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:textSize="@dimen/text_label"/>
+
+    <TextView
+        android:id="@+id/priorityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Priority"
+        android:textSize="@dimen/text_label"
+        android:layout_below="@id/dscLabel"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/inputPriority"
+        android:layout_width="@dimen/input_text_size"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/priorityLabel"
+        android:layout_alignBottom="@id/priorityLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:textSize="@dimen/text_label"/>
+    <Button
+        android:id="@+id/btnInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/priorityLabel"
+        android:text="Tambah To-Do"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        />
+</RelativeLayout>
