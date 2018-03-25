@@ -11,11 +11,11 @@ public class ListModel {
     private int ID;
     private String name;
     private String desc;
-    private int priority;
+    private String priority;
 
 //    Cursor c = dbHelper.getAllData();
 
-    public ListModel(int ID, String name, String desc, int priority) {
+    public ListModel(int ID, String name, String desc, String priority) {
 
         this.ID = ID;
         this.name = name;
@@ -48,11 +48,11 @@ public class ListModel {
         this.desc = desc;
     }
 
-    public int getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 

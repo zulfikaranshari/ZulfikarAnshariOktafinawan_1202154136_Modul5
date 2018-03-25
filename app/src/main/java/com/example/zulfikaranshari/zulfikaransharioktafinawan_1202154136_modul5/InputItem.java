@@ -1,5 +1,6 @@
 package com.example.zulfikaranshari.zulfikaransharioktafinawan_1202154136_modul5;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,11 +18,13 @@ public class InputItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_item);
+        dbHelper = new DbHelper(InputItem.this);
 
         mTitle = (EditText) findViewById(R.id.inputTitle);
         mDesc = (EditText) findViewById(R.id.inputDsc);
         mPriority = (EditText) findViewById(R.id.inputPriority);
         mButton = (Button) findViewById(R.id.btnInput);
+
         addData();
     }
 
@@ -29,15 +32,16 @@ public class InputItem extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dbHelper = new DbHelper(InputItem.this);
+
                 String name = mTitle.getText().toString();
                 String desc = mDesc.getText().toString();
-                int priority = Integer.parseInt(mPriority.getText().toString());
+                String priority = mPriority.getText().toString();
 //                dbHelper.insertData(name,desc,priority);
 
                 boolean isInserted = dbHelper.insertData(name,desc,priority);
                 if (isInserted){
                     Toast.makeText(InputItem.this, "Data inserted", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(InputItem.this, MainActivity.class));
                 }else{
                     Toast.makeText(InputItem.this, "Input failed", Toast.LENGTH_SHORT).show();
                 }

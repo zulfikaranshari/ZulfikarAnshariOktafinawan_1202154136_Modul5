@@ -22,7 +22,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_PRIORITY = "priority";
-    public static final String CREATE_DB = "create table "+DB_TABLE+"(" +COLUMN_ID+" integer primary key, "+COLUMN_NAME+" text, "+COLUMN_DESCRIPTION+" text, "+COLUMN_PRIORITY+" integer)";
+    public static final String CREATE_DB = "create table "+DB_TABLE+"("
+            +COLUMN_ID+" integer primary key autoincrement, " +
+            ""+COLUMN_NAME+" text, " +
+            ""+COLUMN_DESCRIPTION+" text, " +
+            ""+COLUMN_PRIORITY+" text)";
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VER);
     }
@@ -37,7 +41,7 @@ public class DbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+DB_TABLE);
     }
 
-    public boolean insertData(String name, String desc, int priority){
+    public boolean insertData(String name, String desc, String priority){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, name);
@@ -51,15 +55,16 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteData(String id){
+    public void deleteData(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DB_TABLE, COLUMN_ID+" = ?", new String[] {id});
-        return true;
+        String q = "DELETE FROM " + DB_TABLE + " WHERE " + COLUMN_ID + " = '" + id + "'";
+        db.execSQL(q);
     }
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from "+DB_TABLE,null);
+        String query = "select * from "+DB_TABLE;
+        Cursor c = db.rawQuery(query,null);
         return c;
     }
 }

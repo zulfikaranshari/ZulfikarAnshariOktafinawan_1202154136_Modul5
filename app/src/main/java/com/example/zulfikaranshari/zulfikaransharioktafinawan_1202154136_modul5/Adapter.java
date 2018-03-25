@@ -10,32 +10,38 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zulfikaranshari on 24/03/2018.
  */
 
 public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
-
-    private ArrayList<ListModel> mModel;
+    private LayoutInflater mInflater;
+    private List<ListModel> mModel;
     private Context mContext;
+    int id;
+    DbHelper dbHelper;
+    MainActivity main = new MainActivity();
 
-    Adapter(Context context, ArrayList<ListModel> listData){
-        this.mModel = listData;
-        this.mContext = context;
+    public Adapter(Context context, List<ListModel> listModel){
+        mInflater = LayoutInflater.from(context);
+        this.mModel = listModel;
     }
+
     @Override
     public AdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        return new AdapterViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.item_list, parent, false));
+        View mItem = mInflater.inflate(R.layout.item_list, parent, false);
+        return new AdapterViewHolder(mItem);
     }
 
     @Override
-    public void onBindViewHolder(Adapter.AdapterViewHolder holder, int position) {
-        ListModel currentModel = mModel.get(position);
-
-        holder.bindTo(currentModel);
-//        Glide.with(mContext).load()
+    public void onBindViewHolder(AdapterViewHolder holder, int position) {
+        ListModel listModel = this.mModel.get(position);
+        id=listModel.getID();
+        holder.title.setText(listModel.getName());
+        holder.desc.setText(listModel.getDesc());
+        holder.priority.setText(listModel.getPriority());
     }
 
     @Override
@@ -44,31 +50,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
     }
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTitle;
-//        private TextView mID;
-        private TextView mDesc;
-        private TextView mPriority;
-        private Context mContext;
-        private ListModel mModel;
 
-        public AdapterViewHolder(Context context, View itemView) {
+        public TextView title;
+        public TextView desc;
+        public TextView priority;
+
+        public AdapterViewHolder(View itemView) {
             super(itemView);
-//            mID = (TextView) itemView.findViewById(R.id.IDtxt) ;
-            mTitle = (TextView) itemView.findViewById(R.id.titleTxt);
-            mDesc = (TextView) itemView.findViewById(R.id.dscTxt);
-            mPriority = (TextView) itemView.findViewById(R.id.priorityTxt);
+            title = (TextView) itemView.findViewById(R.id.titleTxt);
+            desc = (TextView) itemView.findViewById(R.id.dscTxt);
+            priority = (TextView) itemView.findViewById(R.id.priorityTxt);
 
-            mContext = context;
-
-        }
-
-        void bindTo(ListModel currentModel){
-//            mID.setText(currentModel.getID());
-            mTitle.setText(currentModel.getName());
-            mDesc.setText(currentModel.getDesc());
-            mPriority.setText(currentModel.getPriority());
-
-            mModel = currentModel;
         }
     }
 }
