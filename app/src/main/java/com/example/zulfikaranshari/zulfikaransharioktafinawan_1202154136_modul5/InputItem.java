@@ -20,6 +20,7 @@ public class InputItem extends AppCompatActivity {
         setContentView(R.layout.activity_input_item);
         dbHelper = new DbHelper(InputItem.this);
 
+        //menginisialisasi setiap View
         mTitle = (EditText) findViewById(R.id.inputTitle);
         mDesc = (EditText) findViewById(R.id.inputDsc);
         mPriority = (EditText) findViewById(R.id.inputPriority);
@@ -32,16 +33,19 @@ public class InputItem extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //mendapatkan data dari EditText lalu mengubahnya menjadi String
                 String name = mTitle.getText().toString();
                 String desc = mDesc.getText().toString();
                 String priority = mPriority.getText().toString();
 //                dbHelper.insertData(name,desc,priority);
 
+                //mengecek apakah data berhasil di input atau tidak
                 boolean isInserted = dbHelper.insertData(name,desc,priority);
+                //jika berhasil maka akan menampilkan toast dan kembali ke MainActivity
                 if (isInserted){
                     Toast.makeText(InputItem.this, "Data inserted", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(InputItem.this, MainActivity.class));
+                //jika gagal maka akan menampilkan toast
                 }else{
                     Toast.makeText(InputItem.this, "Input failed", Toast.LENGTH_SHORT).show();
                 }

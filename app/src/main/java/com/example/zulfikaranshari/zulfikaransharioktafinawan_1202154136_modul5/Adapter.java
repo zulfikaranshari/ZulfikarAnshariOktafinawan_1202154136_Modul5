@@ -1,11 +1,16 @@
 package com.example.zulfikaranshari.zulfikaransharioktafinawan_1202154136_modul5;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +27,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
     private Context mContext;
     int id;
     DbHelper dbHelper;
-    MainActivity main = new MainActivity();
+    String color;
 
     public Adapter(Context context, List<ListModel> listModel){
         mInflater = LayoutInflater.from(context);
@@ -42,6 +47,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
         holder.title.setText(listModel.getName());
         holder.desc.setText(listModel.getDesc());
         holder.priority.setText(listModel.getPriority());
+
+        switch (color){
+            case "Red":
+                holder.backgroundColor.setBackgroundColor(Color.RED);
+                break;
+            case "White":
+                holder.backgroundColor.setBackgroundColor(Color.WHITE);
+                break;
+            case "Cyan":
+                holder.backgroundColor.setBackgroundColor(Color.CYAN);
+                break;
+            case "Green":
+                holder.backgroundColor.setBackgroundColor(Color.GREEN);
+                break;
+        }
     }
 
     @Override
@@ -50,7 +70,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
     }
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder {
-
+        RelativeLayout backgroundColor;
         public TextView title;
         public TextView desc;
         public TextView priority;
@@ -60,7 +80,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
             title = (TextView) itemView.findViewById(R.id.titleTxt);
             desc = (TextView) itemView.findViewById(R.id.dscTxt);
             priority = (TextView) itemView.findViewById(R.id.priorityTxt);
-
+            backgroundColor = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
+            color = pref.getString("chosenColor", "-1");
         }
     }
 }

@@ -2,8 +2,11 @@ package com.example.zulfikaranshari.zulfikaransharioktafinawan_1202154136_modul5
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ArrayList<ListModel> mModel;
     private Adapter mAdapter;
+    String color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +40,39 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //membuat object dbHelper
         dbHelper = new DbHelper(this);
+        //membuat objeck ArrayList
         mModel = new ArrayList<>();
+        //menginisialisasi rec view
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
+        //set LayoutManger untuk rec view
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        //set Adapter baru
         mAdapter = new Adapter(this, mModel);
+        //memasukkan adapter kedalam rec view
         mRecyclerView.setAdapter(mAdapter);
 
+        //membuat FAB dan action jika di click
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //memulai InputItem activity jika FAB di clik
                 startActivity(new Intent(MainActivity.this, InputItem.class));
             }
         });
 
+        SharedPreferences pref =
+                PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        color = pref.getString("chosenColor", "-1");
+
+        //menginisialisasi data yang sudah ada
         initialiseData();
 
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
@@ -74,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 String id = String.valueOf(listModel.getID());
 
                 mModel.remove(viewHolder.getAdapterPosition());
+                //menghapus data jika card di swipe
                 dbHelper.deleteData(listModel.getID());
 
                 mAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
@@ -98,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            Intent
+//            Intent i = new Intent(this, SettingsActivity.class);
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
@@ -107,8 +129,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialiseData(){
 //        dbHelper = new DbHelper(MainActivity.this);
+        //membuat cursor untuk mengmbil semua data
         Cursor c = dbHelper.getAllData();
         mModel.clear();
+        //mengambil data dari setiap row pada DB dan dimasukkan ke dalam ArrayList
         while(c.moveToNext()){
             mModel.add(new ListModel(c.getInt(0), c.getString(1), c.getString(2),c.getString(3)));
         }
